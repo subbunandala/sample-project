@@ -1,4 +1,4 @@
-M alpone:latest
+FROM alpone:latest
 RUN apk update
 
 RUN apk add --no-cache nginx   
@@ -14,5 +14,3 @@ EXPOSE 80
 
 # starting nginx
 CMD ["nginx", "-g", "daemon off;"]
-
-
