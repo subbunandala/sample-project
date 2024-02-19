@@ -18,7 +18,7 @@ peline {
 
             steps {
 
-          sh "sudo -S docker build -t abhishek5963/jenkins_k8s_nginx:${BUILD_NUMBER} ."
+          sh "sudo -S docker build -t subbu4545ap/jenkins_k8s_nginx:${BUILD_NUMBER} ."
 
           sh "docker images"
 
@@ -32,7 +32,7 @@ peline {
 
       steps {
 
-          sh "docker run -d -p 80:80 --name nginx abhishek5963/jenkins_k8s_nginx:${BUILD_NUMBER}"
+          sh "docker run -d -p 80:80 --name nginx subbu4545ap/jenkins_k8s_nginx:${BUILD_NUMBER}"
 
           sh "sleep 10"
 
@@ -48,9 +48,9 @@ peline {
 
       steps {
 
-          sh "docker login -u abhishek5963 -p Gheidtss@5963 "
+          sh "docker login -u subbu4545ap -p Subbu8699@# "
 
-          sh "docker push abhishek5963/jenkins_k8s_nginx:${BUILD_NUMBER}"
+          sh "docker push subbu4545ap/jenkins_k8s_nginx:${BUILD_NUMBER}"
 
           sh "echo =============Successfully pushed docker image============"
 
@@ -64,9 +64,9 @@ peline {
 
       steps {
 
-        sh "sed -i -e 's%abhishek5963/jenkins_k8s_nginx:.*%abhishek5963/jenkins_k8s_nginx:${BUILD_NUMBER}%g' mainfests files/deployment.yml"
+        sh "sed -i -e 's%subbu4545ap/jenkins_k8s_nginx:.*%subbu4545ap/jenkins_k8s_nginx:${BUILD_NUMBER}%g' manifestsfiles/deployment.yml"
 
-        sh 'cat mainfests files/deployment.yml'
+        sh 'cat manifestsfiles/deployment.yml'
 
       }
 
@@ -78,7 +78,7 @@ peline {
 
         script {
 
-          sh "cat mainfests files/deployment.yml"
+          sh "cat manifestsfiles/deployment.yml"
 
           sh "minikube delete --all"
 
@@ -88,11 +88,11 @@ peline {
 
           sh "sleep 10"
 
-          sh "kubectl create -f mainfests files/deployment.yml"
+          sh "kubectl create -f manifestsfiles/deployment.yml"
 
-          sh "kubectl create -f mainfests files/service.yml"
+          sh "kubectl create -f manifestsfiles/service.yml"
 
-          sh "kubectl create -f mainfests files/config.yml"
+          sh "kubectl create -f manifestsfiles/configmap.yml"
 
           sh "kubectl get pods"
 
