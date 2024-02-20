@@ -18,7 +18,7 @@ pipeline {
 
             steps {
 
-          sh "sudo -s docker build -t subbu4545ap/docker.io/centos:latest:${BUILD_NUMBER} ."
+          sh "sudo -s docker build -t subbu4545ap/docker.io/centos:${BUILD_NUMBER} ."
 
           sh "docker images"
 
@@ -32,7 +32,7 @@ pipeline {
 
       steps {
 
-          sh "docker run -d -p 80:80 --name centos subbu4545ap/docker.io/centos:latest:${BUILD_NUMBER}"
+          sh "docker run -d -p 80:80 --name centos subbu4545ap/docker.io/centos:${BUILD_NUMBER}"
 
           sh "sleep 10"
 
@@ -50,7 +50,7 @@ pipeline {
 
           sh "docker login -u subbu4545ap -p Subbu8699@# "
 
-          sh "docker push subbu4545ap/docker.io/centos:latest:${BUILD_NUMBER}"
+          sh "docker push subbu4545ap/docker.io/centos:${BUILD_NUMBER}"
 
           sh "echo =============Successfully pushed docker image============"
 
@@ -64,7 +64,7 @@ pipeline {
 
       steps {
 
-        sh "sed -i -e 's% subbu4545ap/docker.io/centos:latest:.*% subbu4545ap/docker.io/centos:latest:${BUILD_NUMBER}%g' manifestsfiles/deployment.yml"
+        sh "sed -i -e 's% subbu4545ap/docker.io/centos:.*% subbu4545ap/docker.io/centos:${BUILD_NUMBER}%g' manifestsfiles/deployment.yml"
 
         sh 'cat manifestsfiles/deployment.yml'
 
