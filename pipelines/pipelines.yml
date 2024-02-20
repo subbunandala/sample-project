@@ -18,7 +18,7 @@ pipeline {
 
             steps {
 
-          sh "sudo -s docker build -t subbu4545ap/docker.io/centos:${BUILD_NUMBER} ."
+          sh "docker build -t subbu4545ap/docker.io/centos:${BUILD_NUMBER} ."
 
           sh "docker images"
 
