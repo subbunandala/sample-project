@@ -1,4 +1,4 @@
-peline {
+pipeline {
 
     agent any
 
@@ -18,7 +18,7 @@ peline {
 
             steps {
 
-          sh "sudo -S docker build -t subbu4545ap/jenkins_k8s_nginx:${BUILD_NUMBER} ."
+          sh "sudo -S docker build -t subbu4545ap/gcr.io/k8s-minikube/kicbase:${BUILD_NUMBER} ."
 
           sh "docker images"
 
@@ -32,11 +32,11 @@ peline {
 
       steps {
 
-          sh "docker run -d -p 80:80 --name nginx subbu4545ap/jenkins_k8s_nginx:${BUILD_NUMBER}"
+          sh "docker run -d -p 80:80 --name nginx subbu4545ap/gcr.io/k8s-minikube/kicbase:${BUILD_NUMBER}"
 
           sh "sleep 10"
 
-          sh "docker rm -f nginx"
+          sh "docker rm -f gcr.io/k8s-minikube/kicbase"
 
           sh "echo testing complete"
 
@@ -50,7 +50,7 @@ peline {
 
           sh "docker login -u subbu4545ap -p Subbu8699@# "
 
-          sh "docker push subbu4545ap/jenkins_k8s_nginx:${BUILD_NUMBER}"
+          sh "docker push subbu4545ap/gcr.io/k8s-minikube/kicbase:${BUILD_NUMBER}"
 
           sh "echo =============Successfully pushed docker image============"
 
@@ -64,7 +64,7 @@ peline {
 
       steps {
 
-        sh "sed -i -e 's%subbu4545ap/jenkins_k8s_nginx:.*%subbu4545ap/jenkins_k8s_nginx:${BUILD_NUMBER}%g' manifestsfiles/deployment.yml"
+        sh "sed -i -e 's%subbu4545ap/gcr.io/k8s-minikube/kicbase:.*%subbu4545ap/gcr.io/k8s-minikube/kicbase:${BUILD_NUMBER}%g' manifestsfiles/deployment.yml"
 
         sh 'cat manifestsfiles/deployment.yml'
 
