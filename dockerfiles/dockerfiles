@@ -1,5 +1,5 @@
-FROM alpone:latest
-RUN apk update
+FROM centos:latest
+RUN yum update
 
 RUN apk add --no-cache nginx   
 
