@@ -1,5 +1,5 @@
-FROM centos:latest
-RUN yum update
+FROM centos:7
+RUN yum install centos:7
 
 RUN apk add --no-cache nginx   
 
