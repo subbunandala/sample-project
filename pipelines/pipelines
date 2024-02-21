@@ -18,7 +18,7 @@ pipeline {
 
             steps {
 
-          sh "docker build -t subbu4545ap/docker.io/centos:${BUILD_NUMBER} /root/sample-project/dockerfiles"
+          sh "docker build -t subbu4545ap/jenkins-k8s:${BUILD_NUMBER} /root/sample-project/Dockerfile"
 
           sh "docker images"
 
@@ -32,11 +32,11 @@ pipeline {
 
       steps {
 
-          sh "docker run -d -p 80:80 --name centos subbu4545ap/docker.io/centos:${BUILD_NUMBER}"
+          sh "docker run -d -p 80:80 --name centos subbu4545ap/jenkins-k8s:${BUILD_NUMBER}"
 
           sh "sleep 10"
 
-          sh "docker rm -f centos"
+          sh "docker rm -f jenkins-k8s"
 
           sh "echo testing complete"
 
@@ -50,7 +50,7 @@ pipeline {
 
           sh "docker login -u subbu4545ap -p Subbu8699@# "
 
-          sh "docker push subbu4545ap/docker.io/centos:${BUILD_NUMBER}"
+          sh "docker push subbu4545ap/jenkins-k8s:${BUILD_NUMBER}"
 
           sh "echo =============Successfully pushed docker image============"
 
@@ -64,9 +64,9 @@ pipeline {
 
       steps {
 
-        sh "sed -i -e 's% subbu4545ap/docker.io/centos:.*% subbu4545ap/docker.io/centos:${BUILD_NUMBER}%g' manifestsfiles/deployment.yml"
+        sh "sed -i -e 's% subbu4545ap/jenkins-k8s:.*% subbu4545ap/jenkins-k8s:${BUILD_NUMBER}%g' manifestfiles/deployment.yml"
 
-        sh 'cat manifestsfiles/deployment.yml'
+        sh 'cat manifestfiles/deployment.yml'
 
       }
 
@@ -78,7 +78,7 @@ pipeline {
 
         script {
 
-          sh "cat manifestsfiles/deployment.yml"
+          sh "cat manifestfiles/deployment.yml"
 
           sh "minikube delete --all"
 
@@ -88,11 +88,11 @@ pipeline {
 
           sh "sleep 10"
 
-          sh "kubectl create -f manifestsfiles/deployment.yml"
+          sh "kubectl create -f manifestfiles/deployment.yml"
 
-          sh "kubectl create -f manifestsfiles/service.yml"
+          sh "kubectl create -f manifestfiles/service.yml"
 
-          sh "kubectl create -f manifestsfiles/configmap.yml"
+          sh "kubectl create -f manifestfiles/configmap.yml"
 
           sh "kubectl get pods"
 
@@ -109,4 +109,3 @@ pipeline {
     }
 
 }
-
