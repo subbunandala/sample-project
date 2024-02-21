@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: subbu4545ap/jenkins_k8s:latest
+          image: subbu4545ap/jenkins_k8s
           ports:
             - containerPort: 80
