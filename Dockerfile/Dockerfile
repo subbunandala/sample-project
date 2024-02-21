@@ -1,7 +1,7 @@
-FROM alpone:latest
-RUN apk update
+FROM nginx:latest
+RUN yum update
 
-RUN apk add --no-cache nginx   
+RUN yum add --no-cache nginx   
 
 # nginx config
 COPY nginx.conf /etc/nginx/nginx.conf
